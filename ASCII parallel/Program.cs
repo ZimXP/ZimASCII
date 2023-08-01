@@ -92,13 +92,16 @@ namespace ASCII_3._0
                 }
             }
             string config = "config.cfg";
-            //If the a folder was missing before the program started the program will shut down
-            string[] configtext = 
-              { "fps = ",  
+
+
+            //Establishes default config values
+            string[] configtext =
+              { "fps = ",
                 "width (amount of horizontal characters) = ",
                 "font width (affects the scale of the characters themselves, which affects the image size) = ",
                 "threads (exceeding 4 can cause the program to consume a ludicrous amount of memory) = "
               };
+
             string[] config_def =
             {
                 configtext[0].Replace(configtext[0], configtext[0] + "30"),
@@ -106,6 +109,8 @@ namespace ASCII_3._0
                 configtext[2].Replace(configtext[2], configtext[2] + "6"),
                 configtext[3].Replace(configtext[3], configtext[3] + "4")
             };
+
+            //If the a folder was missing before the program started the program will shut down
             if (!File.Exists(config) || !folder_exist)
             {
                 File.WriteAllText(config, string.Join("\n", config_def));
@@ -127,7 +132,8 @@ namespace ASCII_3._0
             double mult2 = (vert / horz);
             image.Dispose();
 
-            //Converts the original image resolutions into the appropriate ASCII equivalent
+
+            //Reads config file and converts values into variables
             string[] configs = File.ReadAllLines(config);
             int fps = int.Parse(configs[0].Replace(configtext[0], ""));
             int width = int.Parse(configs[1].Replace(configtext[1], "")); ;
@@ -135,8 +141,7 @@ namespace ASCII_3._0
             int threads = int.Parse(configs[3].Replace(configtext[3], ""));
 
 
-
-
+            //Converts the original image resolutions into the appropriate ASCII equivalent
             Font consolas = new Font("consolas", fontwidth * 2);
             int height = Convert.ToInt32(width * mult);
 
